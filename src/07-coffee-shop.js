@@ -31,5 +31,24 @@
  * @returns {number} Total price or -1 for invalid input
  */
 export function calculateCoffeePrice(size, type, extras = {}) {
-  // Your code here
+  const normalizedSize = size?.toLowerCase();
+  const normalizedType = type?.toLowerCase();
+  const sizePrices = {
+    small: 3.0,
+    medium: 4.0,
+    large: 5.0,
+  };
+  const typesPrices = {
+    regular: 0.0,
+    latte: 1.0,
+    cappuccino: 1.5,
+    mocha: 2.0,
+  };
+  console.log(sizePrices[normalizedSize], typesPrices[normalizedType]);
+  if (!Object.hasOwn(sizePrices, normalizedSize)) return -1;
+  if (!Object.hasOwn(typesPrices, normalizedType)) return -1;
+  let price = sizePrices[normalizedSize] + typesPrices[normalizedType];
+  if (extras.whippedCream) price += 0.5;
+  if (extras.extraShot) price += 0.75;
+  return Number(price.toFixed(2));
 }
